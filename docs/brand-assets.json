@@ -1,0 +1,25 @@
+{
+  "source": "Existing approved I-plusplus corporate website PNG assets, inspected 2026-11-05",
+  "original_combined_source": {
+    "filename": "project-logos-source.png",
+    "sha256": "c5b2122079a9d27929c8c4f4b750c3f2b8ecc477a90a43c02984f1815d9095d6",
+    "dimensions": [1774, 887],
+    "handling": "Preserved unchanged in its original workspace; not copied into this public repository or the deployable output."
+  },
+  "logos": [
+    {
+      "path": "public/assets/project-kiss.png",
+      "sha256": "a068c475fe999657d3b8de50c59fd33caca8ade74e88dd36954b48ff286253c9",
+      "dimensions": [800, 840],
+      "source_rectangle": [48, 24, 848, 864]
+    },
+    {
+      "path": "public/assets/project-aceis.png",
+      "sha256": "91432ca2c89cfcc318865a8908916cdd5b43d9764bde6bd1cda1830a4e1bd088",
+      "dimensions": [896, 856],
+      "source_rectangle": [856, 24, 1752, 880]
+    }
+  ],
+  "transformations": "None. Source bytes, metadata, transparency, and aspect ratios are preserved. CSS controls display size only.",
+  "rights": "Existing rights are retained. No open-source license for the names or logos is granted by this repository."
+}

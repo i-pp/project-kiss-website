@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import { href, navigation, origin, pagePath, repository, type Locale } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  locale?: Locale;
+  noindex?: boolean;
+}
+const { title, description, locale = 'en', noindex = false } = Astro.props;
+const path = pagePath(Astro.url.pathname);
+const canonical = noindex ? `${origin}/404.html` : new URL(href(locale, path), origin).href;
+const languagePath = noindex ? '' : path;
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <title>{title} | Project-KISS</title>
+    <link rel="icon" type="image/png" href="/assets/project-kiss.png" />
+    <link rel="canonical" href={canonical} />
+    {!noindex && <>
+      <link rel="alternate" hreflang="en" href={new URL(href('en', path), origin).href} />
+      <link rel="alternate" hreflang="ja" href={new URL(href('ja', path), origin).href} />
+      <link rel="alternate" hreflang="x-default" href={new URL(href('en', path), origin).href} />
+    </>}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | Project-KISS`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${origin}/assets/project-kiss.png`} />
+    <meta property="og:locale" content={locale === 'ja' ? 'ja_JP' : 'en_US'} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{locale === 'ja' ? '本文へ移動' : 'Skip to content'}</a>
+    <header class="site-header wrap">
+      <div class="masthead">
+        <a class="brand" href={href(locale)}>
+          <img src="/assets/project-kiss.png" width="800" height="840" alt="" />
+          <span>Project-KISS<span class="brand-caption">KEEP IT SIMPLE, STUPID.</span></span>
+        </a>
+        <div class="header-tools">
+          <nav class="languages" aria-label={locale === 'ja' ? '言語' : 'Language'}>
+            <a href={href('en', languagePath)} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+            <span aria-hidden="true">/</span>
+            <a href={href('ja', languagePath)} lang="ja" hreflang="ja" aria-current={locale === 'ja' ? 'true' : undefined}>日本語</a>
+          </nav>
+          <a class="product-link" href={href(locale, 'products/aceis/')}><span lang="en">PRODUCT</span><span aria-hidden="true">↗</span><span class="sr-only"> Project-AceIS</span></a>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label={locale === 'ja' ? 'メインナビゲーション' : 'Main navigation'}>
+        <ul>{navigation.map(item => <li><a href={href(locale, item.path)} aria-current={path === item.path ? 'page' : undefined}>{item[locale]}</a></li>)}</ul>
+        <a class="nav-source" href={repository}>GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-top">
+          <div><a class="footer-name" href={href(locale)}>Project-KISS<span aria-hidden="true">.</span></a><p>{locale === 'ja' ? 'シンプルに設計し、根拠をもって確かめる。' : 'Simple by design. Verified through evidence.'}</p></div>
+          <nav aria-label={locale === 'ja' ? '関連リンク' : 'Related links'}><a href={href(locale, 'philosophy/')}>{locale === 'ja' ? '理念を読む' : 'Read the philosophy'}</a><a href={href(locale, 'products/aceis/')}>Project-AceIS <span aria-hidden="true">↗</span></a><a href={repository}>GitHub <span aria-hidden="true">↗</span></a></nav>
+        </div>
+        <div class="footer-bottom"><p>© I-plusplus Inc.</p><p>{locale === 'ja' ? '運営：I-plusplus株式会社' : 'An initiative of I-plusplus Inc.'}</p><a href="https://www.i-pp.co.jp/">i-pp.co.jp <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </footer>
+  </body>
+</html>

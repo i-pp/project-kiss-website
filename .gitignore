@@ -147,3 +147,9 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Local browser evidence and generated Python caches
+.playwright-cli/
+output/
+__pycache__/
+*.pyc

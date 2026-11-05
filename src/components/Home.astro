@@ -1,0 +1,68 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { href, type Locale } from '../lib/site';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const ja = locale === 'ja';
+const principles = ja ? [
+  ['シンプルにする', '理解できる構成から始める。依存関係や抽象化は、必要性を確かめてから加える。'],
+  ['実際の動作を確かめる', '公式資料と実際の動作を照合する。再現条件、結果、未検証の範囲を記録する。'],
+  ['責任と権限を明確にする', '判断する人、許可された範囲、停止条件を明確にする。AIの出力もレビューと検証の対象にする。'],
+] : [
+  ['Keep structures simple', 'Start with a structure people can understand. Add dependencies and abstractions when the need is demonstrated.'],
+  ['Verify actual behavior', 'Check official sources against working evidence. Record conditions, results, and what remains unverified.'],
+  ['Make responsibility explicit', 'Define who decides, what is authorized, and when to stop. Review and verify AI output as part of the work.'],
+];
+const evidence = ja ? [
+  ['観測する', '状態と失敗原因を、秘密情報を含めずに確認できるようにする。'],
+  ['検証する', '変更のリスクに応じて、正常系・異常系・境界条件を確かめる。'],
+  ['記録する', '確認した事実、提案、未解決事項を分け、判断の根拠を残す。'],
+  ['レビューする', '生成結果をそのまま採用せず、要件と証拠に照らして判断する。'],
+] : [
+  ['Observe', 'Make state and failure causes visible without exposing secrets.'],
+  ['Verify', 'Check normal behavior, failures, and boundaries in proportion to risk.'],
+  ['Record', 'Separate verified facts, proposals, and unresolved questions. Preserve the reasoning.'],
+  ['Review', 'Assess generated output against requirements and evidence before accepting it.'],
+];
+const links = ja ? [
+  ['roadmap/', 'ロードマップ', '現在の対象と、次に判断すること。'],
+  ['docs/', 'ドキュメント', '理念、検証、開発参加の入口。'],
+  ['contributing/', '参加する', '小さな改善と、確かな根拠から。'],
+] : [
+  ['roadmap/', 'Roadmap', 'Current scope and the decisions ahead.'],
+  ['docs/', 'Documentation', 'A starting point for principles and practice.'],
+  ['contributing/', 'Contributing', 'Start with a small change and clear evidence.'],
+];
+---
+<SiteLayout title={ja ? 'ホーム' : 'Simple by design'} description={ja ? 'Project-KISSは、シンプルな設計、観測・検証できる開発、明確な責任と権限を大切にする技術開発プロジェクトです。' : 'Project-KISS brings simple design, observable and verifiable engineering, and clear governance to technical research and development.'} locale={locale}>
+  <div class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">{ja ? 'シンプルさを、技術の土台に。' : 'An engineering philosophy'}</p>
+        <h1 id="hero-title">{ja ? 'シンプルに設計し、' : 'Keep it simple.'}<span>{ja ? '確かめて進む。' : 'Make it verifiable.'}</span></h1>
+        <p class="lead">{ja ? 'Project-KISSは、KISS（Keep It Simple, Stupid）を起点に、観測・検証できる開発と、責任ある判断を大切にする技術開発プロジェクトです。' : 'Project-KISS starts with KISS — Keep It Simple, Stupid. We value understandable structures, observable and verifiable engineering, and accountable decisions.'}</p>
+        <div class="hero-actions"><a class="button" href={href(locale, 'philosophy/')}>{ja ? '理念を読む' : 'Explore the philosophy'} <span aria-hidden="true">↗</span></a><a class="text-link" href={href(locale, 'products/aceis/')}><span lang="en">PRODUCT</span> · Project-AceIS <span aria-hidden="true">→</span></a></div>
+      </div>
+      <div class="brand-map" role="group" aria-label={ja ? 'Project-KISSの理念をProject-AceISの開発へつなぐ' : 'Project-KISS philosophy informs Project-AceIS development'}>
+        <div class="map-heading"><span>PROJECT-KISS</span><span>{ja ? '理念から実践へ' : 'PRINCIPLES → PRACTICE'}</span></div>
+        <div class="map-philosophy"><img src="/assets/project-kiss.png" width="800" height="840" alt="Project-KISS" /><strong>Project-KISS</strong><p>{ja ? '設計・検証・ガバナンスの理念' : 'The philosophy: design, evidence, governance'}</p></div>
+        <p class="map-connector"><span aria-hidden="true">↓</span>{ja ? '開発を導く' : 'INFORMS DEVELOPMENT'}</p>
+        <a class="map-product" href={href(locale, 'products/aceis/')}><img src="/assets/project-aceis.png" width="896" height="856" alt="" /><span><small lang="en">PRODUCT / R&amp;D</small><strong>Project-AceIS</strong><small>{ja ? '次世代システムソフトウェアの構想' : 'A vision for next-generation system software'}</small></span><span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+    <section class="section" aria-labelledby="principles-title">
+      <div class="section-intro"><div><p class="eyebrow">01 / {ja ? '理念' : 'The philosophy'}</p><h2 id="principles-title">{ja ? '理解できることが、出発点。' : 'Understand it. Then build on it.'}</h2></div><p>{ja ? '単純さは、説明を省くことではありません。何を作り、どう確かめ、誰が判断するのか。その関係を見通せる構成を目指します。' : 'Simplicity means being able to explain what a system does, how its behavior is checked, and who is responsible for a decision. These principles guide the work.'}</p></div>
+      <ol class="principles">{principles.map(([title, text], i) => <li><span class="number">0{i + 1}</span><h3>{title}</h3><p>{text}</p></li>)}</ol>
+    </section>
+    <section class="section" aria-labelledby="product-title">
+      <div class="section-intro"><div><p class="eyebrow">02 / {ja ? 'プロダクト' : 'From philosophy to product'}</p><h2 id="product-title">{ja ? '理念を、開発へ。' : 'Principles put to work.'}</h2></div><p>{ja ? 'Project-KISSは開発を導く理念です。Project-AceISは、その理念に基づくプロダクト開発の取り組みです。それぞれの役割と開発段階を明確に伝えます。' : 'Project-KISS provides the guiding philosophy. Project-AceIS is a product development initiative informed by it. Each has a distinct role and a clearly stated scope.'}</p></div>
+      <div class="product-feature"><div class="product-art"><img src="/assets/project-aceis.png" width="896" height="856" alt="Project-AceIS" loading="lazy" /></div><div class="product-copy"><p class="eyebrow">PRODUCT / {ja ? '研究開発構想' : 'Research & development vision'}</p><h3>Project-AceIS</h3><p>{ja ? 'リアルタイム性、予測可能性、移植性、検証可能性を重視し、OS基盤からコンパイラ技術までを対象とする、次世代システムソフトウェアの研究開発構想です。' : 'A research and development vision for next-generation system software. Its goals emphasize real-time behavior, predictability, portability, and verifiability, spanning OS foundations and compiler technology.'}</p><p class="note">{ja ? '構想・開発目標の紹介です。実装済み機能、性能保証、完成時期を示すものではありません。' : 'These are development goals. They do not represent delivered features, performance guarantees, or a release schedule.'}</p><a class="text-link" href={href(locale, 'products/aceis/')}>{ja ? 'Project-AceISについて' : 'Explore Project-AceIS'} <span aria-hidden="true">↗</span></a></div></div>
+    </section>
+    <section class="section governance" aria-labelledby="governance-title">
+      <div><p class="eyebrow">03 / {ja ? '観測・検証・ガバナンス' : 'Evidence & governance'}</p><h2 id="governance-title">{ja ? '判断の根拠を、見える形に。' : 'Make the reasoning visible.'}</h2><p>{ja ? '動作したという結果だけでなく、条件、限界、判断に至る過程を残します。自動化やAIを使う場合も、権限の境界と人が判断する箇所を明確にします。' : 'A result is useful when others can inspect its conditions and limits. When automation or AI is involved, the same discipline applies: explicit authority, bounded actions, and reviewable evidence.'}</p><a class="text-link" href={href(locale, 'philosophy/#governance')}>{ja ? '開発と判断の原則を読む' : 'Read the engineering principles'} <span aria-hidden="true">↗</span></a></div>
+      <ol class="evidence-list">{evidence.map(([title, text], i) => <li><span class="number">0{i + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
+    </section>
+    <section class="section explore" aria-labelledby="explore-title"><div class="section-intro"><div><p class="eyebrow">04 / {ja ? '次の一歩' : 'Explore the project'}</p><h2 id="explore-title">{ja ? '小さく、確実に進める。' : 'A clear next step.'}</h2></div></div><div class="explore-links">{links.map(([path, title, text]) => <a href={href(locale, path)}><span><strong>{title}</strong><small>{text}</small></span><span aria-hidden="true">↗</span></a>)}</div></section>
+  </div>
+</SiteLayout>
