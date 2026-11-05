@@ -30,12 +30,17 @@ jobs:
           cache: npm
       - run: npm ci --no-audit --no-fund
       - run: npm run verify
-      - name: Check responsive layout and accessibility in sandboxed Chrome
+      - name: Start the owned static preview in the background
+        timeout-minutes: 1
         run: |
           mkdir -p output/playwright
-          npm run preview -- --port 4321
-          npx playwright-cli -s=kiss-review open http://127.0.0.1:4321 --config .playwright/cli.config.json
-          npx playwright-cli -s=kiss-review --json run-code --filename scripts/browser-check.js > output/playwright/browser-run.json
+          npm run preview -- --background --port 4321
+      - name: Open sandboxed Chrome
+        timeout-minutes: 1
+        run: npx playwright-cli -s=kiss-review open http://127.0.0.1:4321 --config .playwright/cli.config.json
+      - name: Check responsive layout and accessibility
+        timeout-minutes: 3
+        run: npx playwright-cli -s=kiss-review --json run-code --filename scripts/browser-check.js > output/playwright/browser-run.json
       - name: Close the owned preview and browser
         if: always()
         run: |

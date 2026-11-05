@@ -15,6 +15,8 @@
 
 The first browser checks found enlarged-text overflow and an accessible-name mismatch. These were corrected through wrapping grid/flex sizing, scrollable code blocks within their columns, and removing the overriding logo-link name. The final local run passes the same checks.
 
+The initial GitHub run passed `npm run verify` but remained in the preview-start command, before browser execution. Source inspection of the pinned Astro CLI confirmed that local agent detection can infer background mode, while an ordinary CI shell defaults to a foreground server. CI now uses explicit `--background`, separate startup/browser/check steps, and per-step timeouts. The superseded run is not counted as a browser pass.
+
 Browser screenshots and machine results are generated under ignored `output/playwright/`. Representative English/Japanese home and AceIS pages are captured at desktop and mobile widths. CI uploads its own browser evidence and static output as artifacts; a local result is not evidence that CI passed.
 
 ## Browser scope

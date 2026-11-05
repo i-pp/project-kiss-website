@@ -25,16 +25,20 @@ npm run preview
 
 `verify` runs Astro type checks, the static build, checker regression tests, and local link/fragment checks. It also checks required routes, language pairs, canonical metadata, the sitemap, and the original logo hashes. External checks are separate bounded HTTP requests and never fetch the unpublished custom domain. To disable Astro usage telemetry, set `ASTRO_TELEMETRY_DISABLED=1` for Astro commands.
 
-For the repeatable browser suite, first serve the built output at `http://127.0.0.1:4321` with `npm run preview -- --port 4321`, then run:
+For the repeatable browser suite, explicitly start the preview in the background, run the checks, and stop the owned processes:
 
 ```sh
 mkdir -p output/playwright
+npm run preview -- --background --port 4321
 npx playwright-cli -s=kiss-review open http://127.0.0.1:4321 --config .playwright/cli.config.json
 npx playwright-cli -s=kiss-review run-code --filename scripts/browser-check.js
 npx playwright-cli -s=kiss-review close
+npx astro preview stop
 ```
 
 The suite checks all 15 HTML pages at 320, 390, 768, 1280, and 1536 pixels with normal and 200% root text sizing; it checks image loading, overflow, header overlap, keyboard skip navigation, same-page language switches, PRODUCT links, no-JavaScript navigation, and axe WCAG A/AA rules at 390 and 1280 pixels. It is not a screen-reader test or WCAG certification. Text sizing is an approximation of enlarged-text use, not a browser-zoom certification. Browser evidence stays in ignored `output/playwright/`.
+
+The explicit `--background` matters in automation: Astro 7 may automatically background when it detects a local agent, while a normal CI shell runs a foreground server by default.
 
 ## Structure
 
