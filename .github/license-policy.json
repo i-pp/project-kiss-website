@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "licenses": {
+    "LicenseRef-KOL-v1": {
+      "path": "LICENSE",
+      "sha256": "df951a913ed6f5fe319b9e1b1a3cc2b6e396ea65b9d1687b9f735bd8f117ea9c"
+    },
+    "CC0-1.0": {
+      "path": "LICENSES/CC0-1.0.txt",
+      "sha256": "36ffd9dc085d529a7e60e1276d73ae5a030b020313e6c5408593a6ae2af39673"
+    }
+  },
+  "notice": {
+    "path": "NOTICE",
+    "required_text": [
+      "I-plusplus Inc."
+    ]
+  },
+  "rules": [
+    {
+      "paths": [
+        ".gitignore",
+        "LICENSES/CC0-1.0.txt"
+      ],
+      "kind": "third_party",
+      "license": "CC0-1.0",
+      "evidence": "docs/license-evidence-scope.md",
+      "origin": "github/gitignore Node.gitignore, CC0-1.0; upstream license blob 670154e3538863b2d9891fd5483160fbdfc89164"
+    },
+    {
+      "paths": [
+        "README.md",
+        "LICENSE",
+        "NOTICE",
+        ".github/license-policy.json"
+      ],
+      "kind": "first_party",
+      "license": "LicenseRef-KOL-v1",
+      "header": "root"
+    },
+    {
+      "paths": [
+        ".github/workflows/minimum-ci.yml",
+        "docs/license-evidence-scope.md"
+      ],
+      "kind": "first_party",
+      "license": "LicenseRef-KOL-v1",
+      "header": "spdx",
+      "header_markers": [
+        "WITHOUT WARRANTY OR LIABILITY",
+        "Distributed modifications must be identified",
+        "See the accompanying LICENSE file"
+      ]
+    }
+  ]
+}
