@@ -1,0 +1,7 @@
+project-kiss-website
+
+Copyright 2026 I-plusplus Inc.
+
+The README is first-party repository bootstrap documentation. The .gitignore is the GitHub Node template, matching the reviewed upstream except for the newer Nitro entries. Its CC0-1.0 terms and the copied upstream license are retained, not replaced by KOL.
+
+The new project-authored CI workflow, policy, and scope documentation are identified under KISS Open License Version 1.0 (LicenseRef-KOL-v1). Existing project-authored bootstrap material is also covered by KOL. Original third-party terms, attribution and copyright remain in force. This notice is informational and does not amend a license or grant trademark rights.
