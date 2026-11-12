@@ -1,0 +1,28 @@
+---
+import SiteLayout from './SiteLayout.astro';
+import { href, type Locale } from '../lib/site';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    locale?: Locale;
+    eyebrow: string;
+    lead: string;
+    logo?: 'aceis' | 'kiss';
+  };
+}
+const { title, description, locale = 'en', eyebrow, lead, logo } = Astro.props.frontmatter;
+---
+<SiteLayout title={title} description={description} locale={locale}>
+  <div class="wrap document-shell">
+    <header class="document-heading">
+      <a class="back-link" href={href(locale)}>← {locale === 'ja' ? 'ホーム' : 'Home'}</a>
+      <div class="document-title-row">
+        <div><p class="eyebrow">{eyebrow}</p><h1>{title}</h1><p class="lead">{lead}</p></div>
+        {logo && <img class="document-logo" src={`/assets/project-${logo === 'aceis' ? 'aceis' : 'kiss'}.png`} width={logo === 'aceis' ? 896 : 800} height={logo === 'aceis' ? 856 : 840} alt="" />}
+      </div>
+    </header>
+    <div class="document-body"><article class="prose"><slot /></article><aside class="document-aside"><p class="eyebrow">PROJECT-KISS</p><p>{locale === 'ja' ? '理念から、実践へ。' : 'From principles to practice.'}</p><a href={href(locale, 'philosophy/')}>{locale === 'ja' ? '開発の理念' : 'Our philosophy'} <span aria-hidden="true">↗</span></a><a href={href(locale, 'products/aceis/')}>{locale === 'ja' ? 'プロダクト：AceIS' : 'Product: AceIS'} <span aria-hidden="true">↗</span></a><a href={href(locale, 'contributing/')}>{locale === 'ja' ? 'プロジェクトに参加する' : 'Contribute to the project'} <span aria-hidden="true">↗</span></a></aside></div>
+  </div>
+</SiteLayout>

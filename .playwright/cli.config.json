@@ -1,0 +1,8 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "launchOptions": { "channel": "chrome", "headless": true, "chromiumSandbox": true },
+    "contextOptions": { "viewport": { "width": 1280, "height": 900 }, "reducedMotion": "reduce" }
+  },
+  "outputDir": "output/playwright"
+}
